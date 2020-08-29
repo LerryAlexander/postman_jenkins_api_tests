@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "54f89df4-b724-401d-8075-6fcc4deaf220",
-		"name": "PerfDog_API_Tests",
+		"name": "API_Tests",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
