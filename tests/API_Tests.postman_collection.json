@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "77833ca0-8159-41f7-b215-631a52403b29",
+		"name": "API_Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9f93201d-315b-4fc6-ba07-e72d732cb800",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7219ad5-2f50-421f-b45c-1807ee30302d",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response body should contain message: logged in user\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"logged in user\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{base_url}}/user/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar mascotas disponibles",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "4f2c98d0-244e-469e-a4ce-09706641a7b9",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "25804241-37e0-46fc-9cde-f3df2426ca9c",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response must be valid and have a body\", function () {",
+							"     pm.response.to.be.ok;",
+							"     pm.response.to.be.withBody;",
+							"     pm.response.to.be.json;",
+							"     pm.response.to.not.have.jsonBody(\"error\");",
+							"});",
+							"",
+							"pm.test(\"Selecting Id of an available dog\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var petId;",
+							"    for(var i =0 ; i<jsonData.length ; i++ )",
+							"    {",
+							"        petId = jsonData[i].id;",
+							"    }",
+							"    console.log(\"selected petId is: \"+petId);",
+							"    pm.environment.set(\"petId\", petId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "special-key",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "api_key",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "{{base_url}}/pet/findByStatus?status={{status}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"pet",
+						"findByStatus"
+					],
+					"query": [
+						{
+							"key": "status",
+							"value": "{{status}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Consultar datos de una mascota disponible",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "1c9c2f89-b6c6-44e4-b08a-b7b8fcaa2982",
+						"exec": [
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3c2e52be-46cc-44fb-a82c-24c62dacfc6a",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should be okay to process\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody(\"id\");",
+							"    pm.response.to.not.have.jsonBody(\"error\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "petId",
+							"value": "{{petId}}",
+							"type": "text"
+						}
+					],
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/pet/{{petId}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"pet",
+						"{{petId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crear una orden para una mascota",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a5fc269-822f-46f8-81bb-ca88b7c9027e",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"response should be okay to process\", function () {",
+							"    pm.response.to.not.be.error;",
+							"    pm.response.to.have.jsonBody(\"id\");",
+							"    pm.response.to.have.jsonBody(\"complete\");",
+							"    pm.response.to.not.have.jsonBody(\"error\");",
+							"});",
+							"",
+							"pm.test(\"Order status is placed\", () => {",
+							"  const responseJson = pm.response.json();",
+							"  pm.expect(responseJson.status).to.eql(\"placed\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type header is application/json\", () => {",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7d56f5e7-cf74-48b9-bb9e-32008a8b3b4d",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 0,\n  \"petId\": {{petId}},\n  \"quantity\": 0,\n  \"shipDate\": \"2020-08-13T18:56:55.927Z\",\n  \"status\": \"placed\",\n  \"complete\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/store/order",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"store",
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actualizar Usuario",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "58fea971-8ab1-4b20-8091-f9311a494e58",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6064cff0-dd88-4527-ae9d-d1aeff53dfda",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const jsonData = pm.response.json();",
+							"pm.test(\"Test data type of the response\", () => {",
+							"  pm.expect(jsonData.message).to.be.a(\"string\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"id\": 0,\n  \"username\": \"{{username}}\",\n  \"firstName\": \"string\",\n  \"lastName\": \"string\",\n  \"email\": \"string@gmail.com\",\n  \"password\": \"{{password}}\",\n  \"phone\": \"+5691234567\",\n  \"userStatus\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/user/{{username}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"{{username}}"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e2e659d0-1c7b-488b-bb26-979930c1b3ee",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"meesage response should be ok\", () => {",
+							"  const responseJson = pm.response.json();",
+							"  pm.expect(responseJson.message).to.eql(\"ok\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/user/logout",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "apikey",
+		"apikey": [
+			{
+				"key": "value",
+				"value": "",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f6557e21-7ce4-4862-a3c9-36cdac3f986f",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "fe28423f-a826-479f-a337-c8161f4ca71a",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
