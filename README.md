@@ -1,2 +1,2 @@
 # postman_jenkins_api_tests
-API automated tests example with Postman and Newman running on Jenkins docker image
+This project is an example of how can be integrated **API automated tests** with **Postman** and **Newman** in a **CI/CD** pipeline with **Jenkins**. For this purpose, we are going to be using a **docker image** which contains jenkins, nodejs and newman already installed.
