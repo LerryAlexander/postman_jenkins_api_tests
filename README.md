@@ -1,4 +1,4 @@
-# Postman + Newman API Auotmated Tests running on a Jenkins Pipeline
+# Postman + Newman API Autmated Tests running on a Jenkins Pipeline
 This project is an example of how can be integrated **API automated tests** wita eh **Postman** and **Newman** in a **CI/CD** pipeline with **Jenkins**. For this purpose, we are going to be using a **docker image** which contains jenkins, nodejs and newman already installed.
 Besides, we are going to be using a sample server which contains a several of public endpoints to ineract with for building our api automated tests from this site https://petstore.swagger.io/#/
 
