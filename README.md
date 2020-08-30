@@ -1,5 +1,5 @@
 # Postman + Newman API Autmated Tests running on a Jenkins Pipeline
-This project is an example of how can be integrated **API automated tests** wita eh **Postman** and **Newman** in a **CI/CD** pipeline with **Jenkins**. For this purpose, we are going to be using a **docker image** which contains jenkins, nodejs and newman already installed.
+This project is an example of how can be integrated **API automated tests** with **[Postman](https://www.postman.com/automated-testing/)** and **[Newman](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)** in a **CI/CD** pipeline with **[Jenkins](https://www.jenkins.io/doc/book/pipeline/#declarative-pipeline-fundamentals)**. For this purpose, we are going to be using a **docker image** which contains jenkins, nodejs and newman already installed.
 Besides, we are going to be using a sample server which contains a several of public endpoints to ineract with for building our api automated tests from this site https://petstore.swagger.io/#/
 
 > Postman API Automated Tests Execution with Jenkins pipeline
@@ -24,6 +24,7 @@ Besides, we are going to be using a sample server which contains a several of pu
     - Click on **Continue as admin**
     - Click on **Save and Finish**
   - Create a new pipeline:
+    - For this purpose we are going to be using the **Jenkinsfile** added to this repository which contains a simple Groovy sintax that invokes postman tests by          using newman
     - Click on **Create a new job**
     - Enter an item name, for example `Jenkins Newman Tests`, select **Pipeline** option and click on **OK** button
     - In the **Pipeline** section, from **Definition** option select `Pipeline script from SCM`, copy this repository url        (https://github.com/LerryAlexander/postman_jenkins_api_tests.git) and paste it on the **Repository URL** (see image below) and save changes.
